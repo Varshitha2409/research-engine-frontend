@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Lightbulb, Target, Loader2, AlertCircle } from "lucide-react";
 
@@ -9,12 +9,13 @@ export default function InsightsPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [filename, setFilename] = useState("latest_paper.pdf"); // Hardcoded for demo, normally selected from a list
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8001";
 
-  const fetchInsights = async () => {
+  const fetchInsights = useCallback(async () => {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch(`http://127.0.0.1:8001/api/insights?filename=${filename}`);
+      const response = await fetch(`${apiUrl}/api/insights?filename=${filename}`);
       if (!response.ok) throw new Error("Failed to fetch insights");
       const data = await response.json();
       setInsights(data.insights);
@@ -30,11 +31,11 @@ export default function InsightsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [apiUrl, filename]);
 
   useEffect(() => {
     fetchInsights();
-  }, []);
+  }, [fetchInsights]);
 
   return (
     <div className="max-w-6xl mx-auto space-y-8">
