@@ -40,7 +40,7 @@ export default function LoginPage() {
           <button className="w-full bg-primary p-3 rounded-xl font-bold hover:bg-primary/80 transition shadow-lg shadow-primary/25">Access Dashboard</button>
         </form>
         <p className="mt-6 text-center text-sm text-gray-400">
-          Don't have an account? <a href="/register" className="text-primary hover:underline">Register</a>
+          Do not have an account? <a href="/register" className="text-primary hover:underline">Register</a>
         </p>
       </div>
     </div>
