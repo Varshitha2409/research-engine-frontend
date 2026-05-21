@@ -6,6 +6,7 @@ export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8001";
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -13,7 +14,7 @@ export default function LoginPage() {
     formData.append("username", username);
     formData.append("password", password);
     
-    const res = await fetch("http://localhost:8001/api/login", {
+    const res = await fetch(`${apiUrl}/api/login`, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: formData.toString()
